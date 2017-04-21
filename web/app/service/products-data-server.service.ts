@@ -9,14 +9,14 @@ export class ProductsDataServerService {
   constructor(private http: Http){}
   getProductsData(){
     let productArray:Product[];
-    return this.http.get('http://localhost:8080/product')
+    return this.http.get('http://35.167.122.139:8080/assignment3/product')
       .map(res => res.json());
 
   }
 
   getProduct(id:number){
     let product:Product;
-    return this.http.get('http://localhost:8080/product/'+id)
+    return this.http.get('http://35.167.122.139:8080/assignment3/product/'+id)
       .map((res:Response) => {
         if (res) {
           if (res.status === 200) {
@@ -52,13 +52,13 @@ export class ProductsDataServerService {
     let fileName: string;
 
     formData.append('file', file);
-    return this.http.post('http://localhost:8080/product/image', formData)
+    return this.http.post('http://35.167.122.139:8080/assignment3/product/image', formData)
       .flatMap(filename => {
         product.image = filename.text();
         let headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers, method: 'post'});
         let body = JSON.stringify(product);
-        return this.http.post('http://localhost:8080/product', body, options)
+        return this.http.post('http://35.167.122.139:8080/assignment3/product', body, options)
           .map(res => {
             return res.json()
           })
